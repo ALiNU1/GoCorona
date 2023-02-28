@@ -86,12 +86,16 @@ body{
     min-height: 114px;
     align-items: center;
 }
-/* .header__logo{
-} */ 
+.header__logo{
+    position: relative;
+    z-index: 5;
+} 
 .header__menu{
     flex: 1 1 auto;
 }
 .header__button{
+    position: relative;
+    z-index: 5;
     flex: 0 0 252px;
     display: flex;
     justify-content: flex-end;
@@ -117,7 +121,9 @@ body{
     line-height: 1.2;
     color: #000;
 }
-
+.menu__link:hover{
+    text-decoration: underline;
+}
 @media (max-width: 991.98px) {
     .header__container{
         min-height: 80px;
@@ -134,13 +140,39 @@ body{
     .menu__body{
         position: fixed;
         top: 0;
-        left: 0;
+        left: -100%;
         width: 100%;
         height: 100%;
+        background-color: #fff;
+        padding: 90px 15px 30px 15px;
+        transition: left 0.3s ease 0s;
     }
-    .header__logo{
-        flex: 0 0 40px;
-        overflow: hidden;
+    .header:target .menu__body{
+        left: 0;
+    }
+    .header:target .menu__body:before{
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 80px;
+        width: 100%;
+        background-color: #fff;
+    }
+    .menu__list{
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .menu__item{
+        margin: 0px 0px 25px 0px;
+    }
+    .menu__item:last-child{
+        margin-bottom: 0;
+    }
+    .menu__link{
+        color: #000;
+        font-size: 20px;
     }
 }
 
@@ -175,16 +207,17 @@ body{
     background-color: #70a3f7;
 }
 
+.close__menu__icon,
 .menu__icon{
     display: none;
 }
 
 @media (max-width: 767.98px){
-    
 .menu__icon{
     position: relative;
     flex: 0 0 30px;
     height: 18px;
+    overflow: auto;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -202,4 +235,36 @@ body{
     height: 2px;
     background-color: #000;
 }
+
+.close__menu__icon{
+    flex: 0 0 30px;
+    position: relative;
+    height: 30px;
+}
+
+.close__menu__icon::before,
+.close__menu__icon::after{
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    background-color: #000;
+    height: 2px;
+    transform-origin: 0 0;
+}
+.close__menu__icon::before{
+    transform: rotate(45deg);
+}
+.close__menu__icon::after{
+    transform: rotate(-45deg);
+}
+
+.header:target .menu__icon{
+    display: none;
+}
+.header:target .close__menu__icon{
+    display: flex;
+}
+
 }
